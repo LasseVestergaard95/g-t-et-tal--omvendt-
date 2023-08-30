@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <h1>Gæt et tal</h1>
+    <p></p>
+    <div>
+    <button class="lavt">Gættet er for lavt</button>
+    <button class="højt">Gættet er for højt</button>
+    <button class="korrekt">Gættet er korrekt</button></div>
+    <button class="start">START</button>
+
+    <script>
+      "no strict";
+
+      let gæt;
+      let antalGæt = 0;
+      let min = 0;
+      let max = 100;
+      const text = document.querySelector("p");
+      const lavt = document.querySelector(".lavt");
+      const højt = document.querySelector(".højt");
+      const korrekt = document.querySelector(".korrekt");
+      const start = document.querySelector(".start");
+
+
+      start.addEventListener("click", init);
+
+      function computerGuess() {
+        gæt = Math.floor((min + max) / 2);
+        text.textContent = "Jeg gætter på at tallet er" + " " + gæt;
+        antalGæt++;
+      }
+
+      function init() {
+        min = 0;
+        max = 100;
+        antalGæt= 0
+
+        lavt.addEventListener("click", lavtGæt);
+        højt.addEventListener("click", højtGæt);
+        korrekt.addEventListener("click", korrektGæt);
+start.textContent= "Prøv igen"
+start.removeEventListener("click", init);
+        computerGuess();
+      }
+
+      function lavtGæt() {
+        min = gæt + 1;
+        computerGuess();
+      }
+
+      function højtGæt() {
+        max = gæt;
+        computerGuess();
+      }
+
+      function korrektGæt() {
+        text.textContent = "fedt fedt fedt feeeedtt... jeg gættede " + gæt + " på " + antalGæt + " forsøg";
+        lavt.removeEventListener("click", lavtGæt);
+        højt.removeEventListener("click", højtGæt);
+        korrekt.removeEventListener("click", korrektGæt);
+        start.addEventListener("click", init);
+      }
+    </script>
+  </body>
+</html>
